@@ -1,0 +1,67 @@
+html, body {
+    background-color: #e6d1e1;
+    margin: 0;
+    font-family: 'BIZ UDPMincho', serif;
+    height: 100%;
+}
+
+#text {
+    text-align: left;
+    line-height: 2;
+}
+
+#main {
+    background-color: white;
+    width: 75%;
+    min-height: calc(100vh - 40px - 4vw);
+    text-align: center;
+    padding: calc(20px + 2vw);
+    margin: 0 auto;
+}
+
+#progress {
+    font-size: 20px;
+}
+
+#qstn {
+    font-size: 25px;
+}
+
+button {
+    margin: 0 auto;
+    display: none;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.opt {
+    min-width: 200px;
+}
+
+.player {
+    display: none;
+}
+
+#explode {
+    display: none;
+    position: absolute;
+}
+
+#win {
+    display: none;
+}
+
+#wintext {
+    display: none;
+    position: absolute;
+    top: 35%;
+    left: 13%;
+    font-family: "Comic Sans MS";
+    font-size: 80px;
+    background-color: yellow;
+}
