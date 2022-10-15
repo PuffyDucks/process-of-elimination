@@ -9,7 +9,7 @@ let answerer, inc, pressed;
 let qtsn = 0;
 
 // sounds
-const boom = new Howl({src: ['media/boom.mp3']});
+const boom = new Howl({src: ['media/BOOM.mp3']});
 const fart = new Howl({src: ['media/fart.mp3']});
 const correct = new Howl({src: ['media/correct.mp3']});
 const clap = new Howl({src: ['media/clap.mp3']});
@@ -96,7 +96,7 @@ function loadQuestion() {
   document.getElementById("qstn").innerHTML = questionList[qtsn].question;
 
   // resets
-  pressed = [1, 1, 1, 1, 1, 1, 1];
+  pressed = [1, 1, 1, 1, 1, 1, 1, 1, 1];
   
   for (let i in playerList) {
     playerList[i].answered = false;
