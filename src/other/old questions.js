@@ -1,4 +1,4 @@
-var names = ["Cleo", "Deborah", "Stella", "L", "Katrina", "Esther", "Deborah"]
+var names = ["test", "test", "test", "test", "test", "test", "test"]
 var questionList = [
   [
     {

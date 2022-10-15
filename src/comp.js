@@ -5,11 +5,11 @@ const playerList = [];
 let playerIcons, ansChoices;
 
 // variables
-let answerer, inc, pressed;
+let answerer, incorrect, pressed;
 let qtsn = 0;
 
 // sounds
-const boom = new Howl({src: ['media/boom.mp3']});
+const boom = new Howl({src: ['media/bomb.mp3']});
 const fart = new Howl({src: ['media/fart.mp3']});
 const correct = new Howl({src: ['media/correct.mp3']});
 const clap = new Howl({src: ['media/clap.mp3']});
@@ -35,12 +35,12 @@ function loadElements() {
     playerList[i].name = names[i];
     playerIcons[i].style.display = "inline";
     playerIcons[i].addEventListener('click', () => {
-      let h = playerList[i];
-      if(!h.alive && !h.redemption) {
-        h.redemption = true;
-      } else if(!h.alive && h.redemption){
-        h.alive = true;
-        h.redemption = false;
+      let clickedPlayer = playerList[i];
+      if(!clickedPlayer.alive && !clickedPlayer.redemption) {
+        clickedPlayer.redemption = true;
+      } else if(!clickedPlayer.alive && clickedPlayer.redemption){
+        clickedPlayer.alive = true;
+        clickedPlayer.redemption = false;
       }
       updatePlayers();
     });
@@ -50,14 +50,14 @@ function loadElements() {
   for (let i = 0; i < ansChoices.length; i++) {
     // checks if answer was right, runs click events
     ansChoices[i].addEventListener('click', () => {
-      if(i != inc && answerer != -1 && pressed[i] == 1) {
+      if(i != incorrect && answerer != -1 && pressed[i] == 0) {
         ansChoices[i].style.backgroundColor = "#755d73";
         ansChoices[i].style.color = "#8c7b8b";
-        pressed[i] = 0;
+        pressed[i] = 1;
         playerList[answerer].answered = true;
         correct.play();
         ansNxt();
-      } else if (i == inc) {
+      } else if (i == incorrect) {
         // shows death on first click, moves on for second
         if(answerer != -1) {
           ansChoices[i].style.backgroundColor = "#160040";
@@ -88,7 +88,7 @@ function loadQuestion() {
   // resets  
   let numAlive = 0;
   let winner;
-  pressed = [1, 1, 1, 1, 1, 1, 1];
+  pressed = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   
   // checks playerList to count alive players 
   for (let i in playerList) {
@@ -105,8 +105,8 @@ function loadQuestion() {
     congrats(winner);
   }
 
-  // selects random slot for inc answer to be in 
-  inc = Math.floor(Math.random() * (numAlive + 1));
+  // selects random slot for incorrect answer to be in 
+  incorrect = Math.floor(Math.random() * (numAlive + 1));
 
   ansNxt();
   updatePlayers();
@@ -131,9 +131,9 @@ function loadQuestion() {
     ansChoices[j].style.backgroundColor = "#e0007b";
     ansChoices[j].style.color = "white";
   }
-  ansRst(inc, questionList[qtsn].wrong);
+  ansRst(incorrect, questionList[qtsn].wrong);
   for (let i = 0; i < numAlive; i++) {
-    if(i >= inc) {
+    if(i >= incorrect) {
       ansRst(+i+1, questionList[qtsn].correct[i]);
     } else {
       ansRst(i, questionList[qtsn].correct[i]);
@@ -147,25 +147,25 @@ function updatePlayers() {
     let c = playerList[i];
     
     // icon update function
-    const iconUpdt = (e, bg, tc) => {
-      playerIcons[i].innerHTML = `${c.name} ${e}`;
-      playerIcons[i].style.backgroundColor = bg;
-      playerIcons[i].style.color = tc;
+    const iconUpdate = (emoji, bgColor, textColor) => {
+      playerIcons[i].innerHTML = `${c.name} ${emoji}`;
+      playerIcons[i].style.backgroundColor = bgColor;
+      playerIcons[i].style.color = textColor;
     }
     
     // updates player icon colors
     if(i == answerer) {
-      iconUpdt("🤔", "#ffd129", "#1c1c21");
+      iconUpdate("🤔", "#ffd129", "#1c1c21");
     } else if(c.redemption) {
-      iconUpdt("👻", "#84849c", "#ededed");
+      iconUpdate("👻", "#84849c", "#ededed");
     } else if(c.answered) {
-      iconUpdt("😃", "#7ff76f", "#1c1c21");
+      iconUpdate("😃", "#7ff76f", "#1c1c21");
     } else if(c.alive) {
-      iconUpdt("😐", "#dbdbdb", "#1c1c21");
+      iconUpdate("😐", "#dbdbdb", "#1c1c21");
     } else if(c.explode) {
-      iconUpdt("💥", "#110030", "white");
+      iconUpdate("💥", "#110030", "white");
     } else {
-      iconUpdt("💀", "#77778c", "#dbdbdb");
+      iconUpdate("💀", "#77778c", "#dbdbdb");
     }
   }
 }
@@ -191,8 +191,8 @@ function ansNxt() {
     }
   } else {
     answerer = -1;
-    ansChoices[inc].style.backgroundColor = "#42ceeb";
-    ansChoices[inc].style.color = "white";
+    ansChoices[incorrect].style.backgroundColor = "#42ceeb";
+    ansChoices[incorrect].style.color = "white";
   }
 };
 

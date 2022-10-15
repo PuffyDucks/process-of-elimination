@@ -9,7 +9,7 @@ let answerer, inc, pressed;
 let qtsn = 0;
 
 // sounds
-const boom = new Howl({src: ['media/boom.mp3']});
+const boom = new Howl({src: ['media/bomb.mp3']});
 const fart = new Howl({src: ['media/fart.mp3']});
 const correct = new Howl({src: ['media/correct.mp3']});
 const clap = new Howl({src: ['media/clap.mp3']});
